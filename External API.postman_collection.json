@@ -1,0 +1,1841 @@
+{
+	"info": {
+		"_postman_id": "45525af1-4bf8-484d-b613-bc8a76ece233",
+		"name": "External API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Advanced Messaging",
+			"item": [
+				{
+					"name": "Start Conversations request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();",
+									"",
+									"const requestJson = pm.request.json();",
+									"",
+									"pm.environment.set(\"body\", requestJson.body);",
+									"pm.environment.set(\"id\", responseJson.id);",
+									"",
+									"",
+									"pm.test(\"Status code is 200\", function(){",
+									"     pm.response.to.have.status(200)",
+									"});",
+									"   ",
+									"",
+									"",
+									"pm.test(\"Response body contians key id\", ()=>{",
+									"    pm.expect(responseJson).to.have.any.keys(\"id\", \"participnats\", \"attachments\", \"notes_id\", \"participant_status\")",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "4d8a90f4-51fa-11eb-81a7-0a58a9feac02",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "$@Us06111",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"organization_id\": {{organization_id}},\n\"author_id\": \"4d8a90f4-51fa-11eb-81a7-0a58a9feac02\",\n\"active_participant_ids\": \"aef6fafc-663c-11eb-a218-0a58a9feac02*,4d8a90f4-51fa-11eb-81a7-0a58a9feac02\",\n\"subject\": \"test external api Sunday Test\",\n\"body\": \"this is a test message Sunday Test\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/msg/start_conversation",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"msg",
+								"start_conversation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Render Conversation",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function(){",
+									"     pm.response.to.have.status(200)",
+									"});",
+									"",
+									"pm.test(\"The Content-Type response header is application/pdf\", function (){",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"    pm.response.to.be.header(\"Content-Type\", \"application/pdf\");",
+									"});",
+									"",
+									"",
+									"   "
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "4d8a90f4-51fa-11eb-81a7-0a58a9feac02",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "$@Us06111",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"conversation_id\": {{conversation_id}},\n    \"organization_id\": {{organization_id}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://stage.twistle.com/api/msg/render_conversation",
+							"protocol": "https",
+							"host": [
+								"stage",
+								"twistle",
+								"com"
+							],
+							"path": [
+								"api",
+								"msg",
+								"render_conversation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reply to conversation",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function(){",
+									"     pm.response.to.have.status(200)",
+									"});",
+									"   ",
+									"",
+									"const responseJson = pm.response.json();",
+									"",
+									"pm.test(\"Response body contians key id\", ()=>{",
+									"    pm.expect(responseJson).to.have.any.keys(\"id\", \"author\", \"author_id\", \"participnats\", \"attachments\", \"notes_id\", \"participant_status\")",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "4d8a90f4-51fa-11eb-81a7-0a58a9feac02",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "$@Us06111",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"organization_id\": 2927,\n\"conversation_id\": {{conversation_id}},\n\"author_id\": \"aef6fafc-663c-11eb-a218-0a58a9feac02\",\n\"active_participant_ids\": \"aef6fafc-663c-11eb-a218-0a58a9feac02*,4d8a90f4-51fa-11eb-81a7-0a58a9feac02\",\n\"body\": \"this is my reply\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://stage.twistle.com/api/msg/reply_to_conversation",
+							"protocol": "https",
+							"host": [
+								"stage",
+								"twistle",
+								"com"
+							],
+							"path": [
+								"api",
+								"msg",
+								"reply_to_conversation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch Conversation",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "RRdNzJlYydcjOgKybbcGTQvX",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "93949ce8-81cf-11eb-b814-0a58a9feac02",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"organization_id\": {{organization_id}},\n    \"conversation_id\": {{conversation_id}}\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://stage.twistle.com/api/msg/fetch_conversations",
+							"protocol": "https",
+							"host": [
+								"stage",
+								"twistle",
+								"com"
+							],
+							"path": [
+								"api",
+								"msg",
+								"fetch_conversations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reply to conversations",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "4d8a90f4-51fa-11eb-81a7-0a58a9feac02",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "$@Us06111",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"conversation_id\": {{conversation_id}},\n    \"organization_id\": {{organization_id}},\n    \"participant_id\": \"aef6fafc-663c-11eb-a218-0a58a9feac02\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://stage.twistle.com/api/msg/mark_conversation_read",
+							"protocol": "https",
+							"host": [
+								"stage",
+								"twistle",
+								"com"
+							],
+							"path": [
+								"api",
+								"msg",
+								"mark_conversation_read"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update conversation status",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "4d8a90f4-51fa-11eb-81a7-0a58a9feac02",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "$@Us06111",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"conversation_id\": {{conversation_id}},\n    \"organization_id\": {{organization_id}},\n    \"new_status\": \"clear\",\n    \"participant_id\": \"aef6fafc-663c-11eb-a218-0a58a9feac02\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://stage.twistle.com/api/msg/update_conversation_status",
+							"protocol": "https",
+							"host": [
+								"stage",
+								"twistle",
+								"com"
+							],
+							"path": [
+								"api",
+								"msg",
+								"update_conversation_status"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Attachemnt API",
+			"item": [
+				{
+					"name": "Upload Attachement",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "4d8a90f4-51fa-11eb-81a7-0a58a9feac02",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "$@Us06111",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/zip",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"value": "~/Postman/files/kiosk.zip",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "file_name",
+									"value": "helloworld.txt",
+									"type": "text"
+								},
+								{
+									"key": "file_content",
+									"value": "aGVsbG8gd29ybGQ=",
+									"type": "text"
+								},
+								{
+									"key": "share_with_organization_id",
+									"value": "2927",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://stage.twistle.com/api/upload_attachment",
+							"protocol": "https",
+							"host": [
+								"stage",
+								"twistle",
+								"com"
+							],
+							"path": [
+								"api",
+								"upload_attachment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "View Attachment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function(){",
+									"     pm.response.to.have.status(200)",
+									"});",
+									"",
+									"pm.test(\"The Content-Type response header is application/pdf\", function (){",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"    pm.response.to.be.header(\"Content-Disposition\", 'attachment; filename=\"kiosk.zip\"');",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "4d8a90f4-51fa-11eb-81a7-0a58a9feac02",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "$@Us06111",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\n    \"seqnum\": \"be5806f0-7c8d-11eb-9beb-0a58a9feac02\",\n    \"organization_id\": {{organization_id}},\n    \"on_behalf_of_id\": \"4d8a90f4-51fa-11eb-81a7-0a58a9feac02\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://stage.twistle.com/api/view_attachment",
+							"protocol": "https",
+							"host": [
+								"stage",
+								"twistle",
+								"com"
+							],
+							"path": [
+								"api",
+								"view_attachment"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Clinical Data",
+			"item": [
+				{
+					"name": "Store Clinical Document",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "$@Us06111",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "4d8a90f4-51fa-11eb-81a7-0a58a9feac02",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"organization_id\":\"{{organization_id}}\",\n\"client_endpoint\":\"opinder.gill+testPat@twistle.com\",\n\"clinical_document_type\":\"json\",\n\"clinical_document_source\":\"tracker\",\n\"clinical_document_date\":\"2020-11-25 05:08:22\",\n\"clinical_document_content\":\n\t{\n\t\"tracker_data\": {\n        \"systolicBloodPressure\": 124,\n        \"diastolicBloodPressure\": 78\n    } \n\t}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://stage.twistle.com/api/store_clinical_documents",
+							"protocol": "https",
+							"host": [
+								"stage",
+								"twistle",
+								"com"
+							],
+							"path": [
+								"api",
+								"store_clinical_documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Clinical Documents",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "$@Us06111",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "4d8a90f4-51fa-11eb-81a7-0a58a9feac02",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"organization_id\":\"{{organization_id}}\",\n\"client_endpoint\":\"opinder.gill+testPat@twistle.com\",\n\"clinical_document_type\":\"json\",\n\"clinical_document_source\":\"tracker\",\n\"clinical_document_date\":\"2020-11-22 05:08:22\",\n\"clinical_document_content\":\n\t{\n\t\"tracker_data\": {\n        \"systolicBloodPressure\": 124,\n        \"diastolicBloodPressure\": 78\n    } \n\t}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://stage.twistle.com/api/list_clinical_documents",
+							"protocol": "https",
+							"host": [
+								"stage",
+								"twistle",
+								"com"
+							],
+							"path": [
+								"api",
+								"list_clinical_documents"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Twistle User/Organization Management and SSO API",
+			"item": [
+				{
+					"name": "Find provisioned user",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "4d8a90f4-51fa-11eb-81a7-0a58a9feac02",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "$@Us06111",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "organization_id",
+									"value": "2927",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "opinder.gill+testPat@twistle.com",
+									"type": "text"
+								},
+								{
+									"key": "external_id",
+									"value": "1234",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "allow_client_identifier_external_id_match",
+									"value": "2927",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "1111111111",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "prefer_phone",
+									"value": "1",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "https://stage.twistle.com/api/find_provisioned_user?organization_id={{organization_id}}&email=opinder.gill+falcontc@twistle.com",
+							"protocol": "https",
+							"host": [
+								"stage",
+								"twistle",
+								"com"
+							],
+							"path": [
+								"api",
+								"find_provisioned_user"
+							],
+							"query": [
+								{
+									"key": "organization_id",
+									"value": "{{organization_id}}"
+								},
+								{
+									"key": "email",
+									"value": "opinder.gill+falcontc@twistle.com"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Provision",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function(){",
+									"     pm.response.to.have.status(200)",
+									"});",
+									"   ",
+									"      ",
+									"const responseJson = pm.response.json();",
+									"",
+									"pm.test(\"Response contains sucess result\",() => {",
+									"   pm.expect(responseJson.result).equals(\"success\");",
+									"})",
+									"",
+									"pm.test(\"Response body contians keys result, test, twistle_username\", ()=>{",
+									"    pm.expect(responseJson).to.have.any.keys(\"result\",\"text\",\"twsitle_username\")",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "4d8a90f4-51fa-11eb-81a7-0a58a9feac02",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "$@Us06111",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "gender",
+									"value": "F",
+									"type": "text"
+								},
+								{
+									"key": "organization_id",
+									"value": "{{organization_id}}",
+									"type": "text"
+								},
+								{
+									"key": "client_of_organization",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "external_id",
+									"value": "1234",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "opinder.gill+api2@twsitle.com",
+									"type": "text"
+								},
+								{
+									"key": "dob",
+									"value": "01/01/1999",
+									"type": "text"
+								},
+								{
+									"key": "firstname",
+									"value": "External",
+									"type": "text"
+								},
+								{
+									"key": "lastname",
+									"value": "Api",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "555-123-0007",
+									"type": "text"
+								},
+								{
+									"key": "prefer_phone",
+									"value": "true",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://stage.twistle.com/api/user_provision",
+							"protocol": "https",
+							"host": [
+								"stage",
+								"twistle",
+								"com"
+							],
+							"path": [
+								"api",
+								"user_provision"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "View Org",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function(){",
+									"     pm.response.to.have.status(200)",
+									"});",
+									"   ",
+									"      ",
+									"const responseJson = pm.response.json();",
+									"",
+									"pm.test(\"Response contains sucess result\",() => {",
+									"   pm.expect(responseJson.result).equals(\"success\");",
+									"})",
+									"",
+									"pm.test(\"Response body contians keys result, text, organization. logo_b64\", ()=>{",
+									"    pm.expect(responseJson).to.have.any.keys(\"result\",\"text\", \"organization\", \"logo_b64\")",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "4d8a90f4-51fa-11eb-81a7-0a58a9feac02",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "$@Us06111",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://stage.twistle.com/api/view_organization?organization_id={{organization_id}}",
+							"protocol": "https",
+							"host": [
+								"stage",
+								"twistle",
+								"com"
+							],
+							"path": [
+								"api",
+								"view_organization"
+							],
+							"query": [
+								{
+									"key": "organization_id",
+									"value": "{{organization_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create/update Org",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function(){",
+									"     pm.response.to.have.status(200)",
+									"});",
+									"   ",
+									"      ",
+									"const responseJson = pm.response.json();",
+									"",
+									"pm.test(\"Response contains sucess result\",() => {",
+									"   pm.expect(responseJson.result).equals(\"success\");",
+									"})",
+									"",
+									"pm.test(\"Response body contians keys result, text, organization\", ()=>{",
+									"    pm.expect(responseJson).to.have.any.keys(\"result\",\"text\", \"organization\")",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "4d8a90f4-51fa-11eb-81a7-0a58a9feac02",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "$@Us06111",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "org_name",
+									"value": "test org",
+									"type": "text"
+								},
+								{
+									"key": "has_clients",
+									"value": "yes",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://stage.twistle.com/api/create_or_update_organization",
+							"protocol": "https",
+							"host": [
+								"stage",
+								"twistle",
+								"com"
+							],
+							"path": [
+								"api",
+								"create_or_update_organization"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function(){",
+									"     pm.response.to.have.status(200)",
+									"});",
+									"   ",
+									"      ",
+									"const responseJson = pm.response.json();",
+									"",
+									"pm.test(\"Response contains sucess result\",() => {",
+									"   pm.expect(responseJson.result).equals(\"success\");",
+									"})",
+									"",
+									"pm.test(\"Response body contians keys result, test, twistle_username\", ()=>{",
+									"    pm.expect(responseJson).to.have.any.keys(\"result\",\"text\")",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "4d8a90f4-51fa-11eb-81a7-0a58a9feac02",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "$@Us06111",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "organization_id",
+									"value": "{{organization_id}}",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "555-123-0007",
+									"type": "text"
+								},
+								{
+									"key": "client_of_organization",
+									"value": "true",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://stage.twistle.com/api/remove_user?organization_id={{organization_id}}&phone=555-123-0007&client_of_organization=true",
+							"protocol": "https",
+							"host": [
+								"stage",
+								"twistle",
+								"com"
+							],
+							"path": [
+								"api",
+								"remove_user"
+							],
+							"query": [
+								{
+									"key": "organization_id",
+									"value": "{{organization_id}}"
+								},
+								{
+									"key": "phone",
+									"value": "555-123-0007"
+								},
+								{
+									"key": "client_of_organization",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Workflow API",
+			"item": [
+				{
+					"name": "Initiate Workflow",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function(){",
+									"     pm.response.to.have.status(200)",
+									"});",
+									"   ",
+									"   ",
+									"   ",
+									"const responseJson = pm.response.json();",
+									"",
+									"pm.test(\"Response body contians string\", ()=>{",
+									"    pm.expect(responseJson.target_actor_account).equals(35855);",
+									"});",
+									"",
+									"pm.test(\"Response body contians Staff\", ()=>{",
+									"    pm.expect(responseJson.execution_props).to.include(\"patient\");",
+									"     pm.expect(responseJson.execution_props).to.include(\"staff\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "4d8a90f4-51fa-11eb-81a7-0a58a9feac02",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "$@Us06111",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "actors",
+									"value": "{\"patient\":\"c9215e50-6591-11eb-9c3e-0a58a9feac02\",\"staff\":\"4d8a90f4-51fa-11eb-81a7-0a58a9feac02\"}",
+									"type": "text"
+								},
+								{
+									"key": "workflow_definition_id",
+									"value": "11359",
+									"type": "text"
+								},
+								{
+									"key": "test_mode",
+									"value": "1/true",
+									"type": "text"
+								},
+								{
+									"key": "organization_id",
+									"value": "{{organization_id}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://stage.twistle.com/api/initiate_workflow?workflow_definition_id=11359&organization_id=organization_id&execution_props={\"patient\":\"c9215e50-6591-11eb-9c3e-0a58a9feac02\",\"staff\":\"8fff2914-5c3f-11eb-a262-0a58a9feac02\"}&test_mode=1/true",
+							"protocol": "https",
+							"host": [
+								"stage",
+								"twistle",
+								"com"
+							],
+							"path": [
+								"api",
+								"initiate_workflow"
+							],
+							"query": [
+								{
+									"key": "workflow_definition_id",
+									"value": "11359"
+								},
+								{
+									"key": "organization_id",
+									"value": "organization_id"
+								},
+								{
+									"key": "execution_props",
+									"value": "{\"patient\":\"c9215e50-6591-11eb-9c3e-0a58a9feac02\",\"staff\":\"8fff2914-5c3f-11eb-a262-0a58a9feac02\"}"
+								},
+								{
+									"key": "test_mode",
+									"value": "1/true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Form Submissions",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function(){",
+									"     pm.response.to.have.status(200)",
+									"});",
+									"",
+									"const responseJson = pm.response.json();",
+									"",
+									"pm.test(\"Test form definition\", () => {",
+									"    pm.expect(responseJson.form_definition.title).equals(\"Chemo Symptom Form\")",
+									"})",
+									"",
+									"",
+									"pm.test(\"Verify submissions\", () => {",
+									"   // const submissions = responseJson.submissions.find",
+									"   // (m => m.type === \"submissions\");",
+									"    pm.expect(responseJson.submissions[0].values).to.be.an(\"object\")",
+									"})",
+									"",
+									"",
+									"",
+									"  "
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "4d8a90f4-51fa-11eb-81a7-0a58a9feac02",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "$@Us06111",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "form_definition_id",
+									"value": "32371",
+									"type": "text"
+								},
+								{
+									"key": "organization_id",
+									"value": "{{organization_id}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://stage.twistle.com/api/list_form_submissions",
+							"protocol": "https",
+							"host": [
+								"stage",
+								"twistle",
+								"com"
+							],
+							"path": [
+								"api",
+								"list_form_submissions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pause Workflow",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200)",
+									"});",
+									"",
+									"const responseJson = pm.response.json();",
+									"",
+									"pm.test(\"Verify that workflow is paused\", () => {",
+									"    pm.expect(responseJson.paused_executions[0].paused).equals(true)",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "4d8a90f4-51fa-11eb-81a7-0a58a9feac02",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "$@Us06111",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "workflow_definition_id",
+									"value": "11359",
+									"type": "text"
+								},
+								{
+									"key": "workflow_definition_name",
+									"value": "COVID19 Dashboard",
+									"type": "text"
+								},
+								{
+									"key": "target_actor_identifier",
+									"value": "c9215e50-6591-11eb-9c3e-0a58a9feac02",
+									"type": "text"
+								},
+								{
+									"key": "reason",
+									"value": "Pause it",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://stage.twistle.com/api/pause_workflow",
+							"protocol": "https",
+							"host": [
+								"stage",
+								"twistle",
+								"com"
+							],
+							"path": [
+								"api",
+								"pause_workflow"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Workflow Executions",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200)",
+									"});",
+									"",
+									"const responseJson = pm.response.json();",
+									"",
+									"pm.test(\"Workflow id is present in the response\", () => {",
+									"    pm.expect(responseJson.workflow_executions[0].seqnum).equals(\"5ae21670-7e99-11eb-b400-0a58a9feac02\")",
+									"})",
+									"",
+									"",
+									"pm.test(\"seqnum is present in the response\", () => {",
+									"    pm.expect(responseJson.workflow_executions[0].seqnum).equals(\"5ae21670-7e99-11eb-b400-0a58a9feac02\")",
+									"})",
+									"",
+									"pm.test(\"version_group_id is present in the workflow_definition\", () => {",
+									"    pm.expect(responseJson.workflow_executions[0].workflow_definition.version_group_id).equals(\"6bf4c6b8-61ae-11eb-9b06-0a58a9feac02\")",
+									"})",
+									"",
+									"pm.test(\"id, execution_props, complete, paused, terminated keys are present in the workflow_definition\", () => {",
+									"    pm.expect(responseJson.workflow_executions[0]).to.have.any.keys(\"id\", \"execution_props\",\"complete\", \"paused\", \"terminated\")",
+									"})",
+									"",
+									"",
+									"",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "4d8a90f4-51fa-11eb-81a7-0a58a9feac02",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "$@Us06111",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "target_actor_identifier",
+									"value": "c9215e50-6591-11eb-9c3e-0a58a9feac02",
+									"type": "text"
+								},
+								{
+									"key": "organization_id",
+									"value": "{{organization_id}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://stage.twistle.com/api/list_workflow_executions",
+							"protocol": "https",
+							"host": [
+								"stage",
+								"twistle",
+								"com"
+							],
+							"path": [
+								"api",
+								"list_workflow_executions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Resume",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200)",
+									"});",
+									"",
+									"const responseJson = pm.response.json();",
+									"",
+									"pm.test(\"Verify that workflow is resumed\", () => {",
+									"    pm.expect(responseJson.resumed_executions[0].paused).equals(false)",
+									"})",
+									"",
+									"",
+									"pm.test(\"Verify that paused is set to false\", () => {",
+									"    pm.expect(responseJson.resumed_executions[0].execution_props).contains(\"resumed_on\")",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "4d8a90f4-51fa-11eb-81a7-0a58a9feac02",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "$@Us06111",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "workflow_definition_id",
+									"value": "11359",
+									"type": "text"
+								},
+								{
+									"key": "workflow_definition_name",
+									"value": "COVID19 Dashboard",
+									"type": "text"
+								},
+								{
+									"key": "target_actor_identifier",
+									"value": "c9215e50-6591-11eb-9c3e-0a58a9feac02",
+									"type": "text"
+								},
+								{
+									"key": "reason",
+									"value": "Resume it",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://stage.twistle.com/api/resume_workflow",
+							"protocol": "https",
+							"host": [
+								"stage",
+								"twistle",
+								"com"
+							],
+							"path": [
+								"api",
+								"resume_workflow"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrive_workflow",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200)",
+									"});",
+									"",
+									"pm.test(\"The Content-Type response header is applicaton/pdf\", function (){",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"    pm.response.to.be.header(\"Content-Type\", \"application/pdf\");",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "4d8a90f4-51fa-11eb-81a7-0a58a9feac02",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "$@Us06111",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/pdf",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "workflow_definition_id",
+									"value": "11359",
+									"type": "text"
+								},
+								{
+									"key": "workflow_definition_name",
+									"value": "COVID19 Dashboard",
+									"type": "text"
+								},
+								{
+									"key": "target_actor_identifier",
+									"value": "c9215e50-6591-11eb-9c3e-0a58a9feac02",
+									"type": "text"
+								},
+								{
+									"key": "response_format",
+									"value": "pdf",
+									"description": "json",
+									"type": "text"
+								},
+								{
+									"key": "workflow_execution_id",
+									"value": "4865420",
+									"type": "text"
+								},
+								{
+									"key": "workflow_execution_activity_step_id",
+									"value": "5091777",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "https://stage.twistle.com/api/retrieve_workflow",
+							"protocol": "https",
+							"host": [
+								"stage",
+								"twistle",
+								"com"
+							],
+							"path": [
+								"api",
+								"retrieve_workflow"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Send Form To Client",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "4d8a90f4-51fa-11eb-81a7-0a58a9feac02",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "$@Us06111",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\n    \"organization_id\": \"{{organization_id}}\",\n    \"client_endpoint\": \"opinder.gill+testPat@twistle.com\",\n     \"form_definition_list\": [{\n        \"name\": \"Section 1\",\n        \"fields\": [\n            {\n                \"type\": \"checkbox\",\n                \"label\": \"1..how about this?\"\n            },\n            {\n                \"type\": \"text\",\n                \"label\": \"or this??\"\n            }\n        ]\n    },{\n        \"name\": \"Section 2\",\n        \"fields\": [\n            {\n                \"type\": \"checkbox\",\n                \"label\": \"2...how about this?\"\n            },\n            {\n                \"type\": \"text\",\n                \"label\": \"or this??\"\n            }\n        ]\n    }]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://stage.twistle.com/api/send_form_to_client",
+							"protocol": "https",
+							"host": [
+								"stage",
+								"twistle",
+								"com"
+							],
+							"path": [
+								"api",
+								"send_form_to_client"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Terminate THIS IS FAILING",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200)",
+									"});",
+									"",
+									"const responseJson = pm.response.json();",
+									"",
+									"pm.test(\"Verify that workflow is termintaed\", () => {",
+									"    pm.expect(responseJson.resumed_executions[0].terminated).equals(true)",
+									"})",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "4d8a90f4-51fa-11eb-81a7-0a58a9feac02",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "$@Us06111",
+									"type": "string"
+								},
+								{
+									"key": "showPassword",
+									"value": false,
+									"type": "boolean"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "workflow_definition_id",
+									"value": "11359",
+									"type": "text"
+								},
+								{
+									"key": "workflow_definition_name",
+									"value": "COVID19 Dashboard",
+									"type": "text"
+								},
+								{
+									"key": "target_actor_identifier",
+									"value": "c9215e50-6591-11eb-9c3e-0a58a9feac02",
+									"type": "text"
+								},
+								{
+									"key": "reason",
+									"value": "Terminate it ",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://stage.twistle.com/api/terminate_workflow",
+							"protocol": "https",
+							"host": [
+								"stage",
+								"twistle",
+								"com"
+							],
+							"path": [
+								"api",
+								"terminate_workflow"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
